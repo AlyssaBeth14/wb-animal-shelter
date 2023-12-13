@@ -61,7 +61,7 @@ class AnimalShelter{
     }
 
     adopt(animal){
-        const animalIndex = this.animals.indexOf(i)
+        const animalIndex = this.animals.indexOf(animal)
         this.animals.splice(animalIndex, 1)
     }
 
@@ -71,10 +71,19 @@ class AnimalShelter{
 }
 
 const shelter = new AnimalShelter()
-for(const animal of animalData){
+for(let animal of animalData){
     const hunger = animal.hunger ? animal.hunger : 50
-    const newAnimal = new Animal(animal.name, animal.species, animal.color, hunger)
-    shelter.addAnimal(newAnimal)
+if(animal.species === 'cat'){
+    animal = new Cat(animal.name, animal.color, hunger)
+} else if(animal.species === 'dog'){
+    animal = new Dog(animal.name, animal.color, hunger)
+} else {
+    animal = new Animal(animal.name, animal.species, animal.color, hunger)}
+
+    shelter.addAnimal(animal)
 }
 
-
+for(let animal of shelter.animals){
+        animal.greet()
+        animal.feed()
+    }
